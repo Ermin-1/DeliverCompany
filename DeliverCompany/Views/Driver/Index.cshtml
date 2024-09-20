@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Driver>
+
+<h2>Driver List</h2>
+
+<form method="get">
+    <p>
+        Search by name: <input type="text" name="searchString" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Car Registration</th>
+            <th>Note Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DriverName</td>
+                <td>@item.CarReg</td>
+                <td>@item.NoteDate.ToShortDateString()</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.DriverID })">Edit</a> |
+                    <a href="@Url.Action("Details", new { id = item.DriverID })">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
