@@ -12,6 +12,9 @@
         public decimal BeloppIn { get; set; }
         public decimal TotalBeloppUt { get; set; }
         public decimal TotalBeloppIn { get; set; }
+
+        // Relation till händelser
+        public ICollection<Event> Events { get; set; }
     }
 
 }

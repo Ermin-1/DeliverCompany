@@ -16,18 +16,25 @@ namespace DeliverCompany.Controllers
 
 
         // GET: Driver/Index
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, DateTime? fromNoteDate, DateTime? toNoteDate)
         {
             var drivers = from d in _context.Drivers select d;
 
-            if (!String.IsNullOrEmpty(searchString))
+            // Filtrering baserat på namn
+            if (!string.IsNullOrEmpty(searchString))
             {
-                drivers = drivers.Where(s => s.DriverName.Contains(searchString));
+                drivers = drivers.Where(d => d.DriverName.Contains(searchString));
+            }
+
+            // Filtrering baserat på NoteDate (datumintervall)
+            if (fromNoteDate.HasValue && toNoteDate.HasValue)
+            {
+                drivers = drivers.Where(d => d.NoteDate >= fromNoteDate && d.NoteDate <= toNoteDate);
             }
 
             return View(await drivers.ToListAsync());
-
         }
+
 
         // GET: Driver/Create
         public IActionResult Create()
@@ -79,6 +86,7 @@ namespace DeliverCompany.Controllers
 
             if (ModelState.IsValid)
             {
+
                 try
                 {
                     _context.Update(driver);
@@ -104,6 +112,86 @@ namespace DeliverCompany.Controllers
         {
             return _context.Drivers.Any(e => e.DriverID == id);
         }
+
+        // GET: Employee/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _context.Employees
+                .FirstOrDefaultAsync(m => m.EmployeeId == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+
+        // POST: Employee/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var employee = await _context.Employees.FindAsync(id);
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool EmployeeExists(int id)
+        {
+            return _context.Employees.Any(e => e.EmployeeId == id);
+        }
+
+        // GET: Driver/AddEvent/5
+        public IActionResult AddEvent(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var driver = _context.Drivers.Find(id);
+            if (driver == null)
+            {
+                return NotFound();
+            }
+
+            var model = new Event { DriverID = driver.DriverID, NoteDate = DateTime.Now };
+            return View(model);
+        }
+
+        // POST: Driver/AddEvent/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddEvent([Bind("EventID,DriverID,EventDate,Description,BeloppIn,BeloppUt")] Event @event)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Events.Add(@event);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = @event.DriverID });
+            }
+            return View(@event);
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var driver = await _context.Drivers
+                                       .Include(d => d.Events) // Ladda relaterade events
+                                       .FirstOrDefaultAsync(m => m.DriverID == id);
+
+            if (driver == null) return NotFound();
+
+            return View(driver);
+        }
+
 
     }
 

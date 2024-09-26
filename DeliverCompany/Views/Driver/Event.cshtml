@@ -1,0 +1,27 @@
+﻿@model Event
+
+<h2>Create Event for Driver</h2>
+
+<form asp-action="CreateEvent" method="post">
+    <div class="form-group">
+        <label asp-for="NoteDate"></label>
+        <input asp-for="NoteDate" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="NoteDescription"></label>
+        <input asp-for="NoteDescription" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="BeloppIn"></label>
+        <input asp-for="BeloppIn" class="form-control" type="number" />
+    </div>
+    <div class="form-group">
+        <label asp-for="BeloppUt"></label>
+        <input asp-for="BeloppUt" class="form-control" type="number" />
+    </div>
+
+    <!-- DriverID hidden field to ensure event is associated with the correct driver -->
+    <input type="hidden" asp-for="DriverID" />
+
+    <button type="submit" class="btn btn-primary">Create Event</button>
+</form>

@@ -11,6 +11,7 @@ namespace DeliverCompany.Data
 
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Event> Events { get; set; }
 
 
 
@@ -19,23 +20,23 @@ namespace DeliverCompany.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Employee>().HasData(
-                   new Employee
-                   {
-                       EmployeeId = 1,
-                       Name = "Admin User",
-                       Email = "admin@example.com",
-                       Password = "admin123", 
-                       Role = "Admin"
-                   },
-                   new Employee
-                   {
-                       EmployeeId = 2,
-                       Name = "John Doe",
-                       Email = "john@example.com",
-                       Password = "password123",
-                       Role = "Employee"
-                   }
-               );
+                new Employee
+                {
+                    EmployeeId = 1,
+                    Name = "Admin User",
+                    Email = "admin@example.com",
+                    Password = "admin123",
+                    Role = "Admin"
+                },
+                new Employee
+                {
+                    EmployeeId = 2,
+                    Name = "John Doe",
+                    Email = "john@example.com",
+                    Password = "password123",
+                    Role = "Employee"
+                }
+            );
 
             // Seed data for Driver
             modelBuilder.Entity<Driver>().HasData(
@@ -66,6 +67,38 @@ namespace DeliverCompany.Data
                     TotalBeloppIn = 0.00M
                 }
             );
+
+            // Seed data for Event
+            modelBuilder.Entity<Event>().HasData(
+                new Event
+                {
+                    EventID = 1,
+                    NoteDate = DateTime.Now.AddDays(-1),
+                    NoteDescription = "Delivered goods to customer",
+                    BeloppIn = 400.00M,
+                    BeloppUt = 50.00M,
+                    DriverID = 1 // Kopplad till Alice Smith
+                },
+                new Event
+                {
+                    EventID = 2,
+                    NoteDate = DateTime.Now.AddDays(-2),
+                    NoteDescription = "Vehicle repaired",
+                    BeloppIn = 0.00M,
+                    BeloppUt = 300.00M,
+                    DriverID = 2 // Kopplad till Bob Johnson
+                },
+                new Event
+                {
+                    EventID = 3,
+                    NoteDate = DateTime.Now.AddDays(-3),
+                    NoteDescription = "Picked up supplies",
+                    BeloppIn = 0.00M,
+                    BeloppUt = 100.00M,
+                    DriverID = 1 // Kopplad till Alice Smith
+                }
+            );
         }
+
     }
 }

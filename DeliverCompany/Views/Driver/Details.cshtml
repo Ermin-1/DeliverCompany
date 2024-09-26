@@ -1,0 +1,33 @@
+﻿@model Driver
+
+<h2>Details for @Model.DriverName</h2>
+
+<p>Car Registration: @Model.CarReg</p>
+<p>Responsible Employee: @Model.ResponsibleEmployee</p>
+<p>Total Belopp In: @Model.TotalBeloppIn</p>
+<p>Total Belopp Ut: @Model.TotalBeloppUt</p>
+
+<h3>Driver Events</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Event Date</th>
+            <th>Description</th>
+            <th>Belopp In</th>
+            <th>Belopp Ut</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var driverEvent in Model.Events)  // Byter från 'event' till 'driverEvent'
+        {
+            <tr>
+                <td>@driverEvent.NoteDate.ToShortDateString()</td>
+                <td>@driverEvent.NoteDescription</td>
+                <td>@driverEvent.BeloppIn</td>
+                <td>@driverEvent.BeloppUt</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("CreateEvent", new { id = Model.DriverID })">Add Event</a>

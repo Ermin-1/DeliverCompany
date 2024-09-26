@@ -1,4 +1,4 @@
-using DeliverCompany.Data;
+﻿using DeliverCompany.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliverCompany
@@ -13,6 +13,11 @@ namespace DeliverCompany
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+        
+
+            // L�gg till IHttpContextAccessor
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 

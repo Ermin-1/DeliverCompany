@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliverCompany.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240920072709_initial creation")]
-    partial class initialcreation
+    [Migration("20240926084228_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,7 +76,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 200.00m,
                             CarReg = "ABC123",
                             DriverName = "Alice Smith",
-                            NoteDate = new DateTime(2024, 9, 19, 9, 27, 8, 981, DateTimeKind.Local).AddTicks(9684),
+                            NoteDate = new DateTime(2024, 9, 25, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2163),
                             NoteDescription = "Completed delivery route",
                             ResponsibleEmployee = "John Doe",
                             TotalBeloppIn = 500.00m,
@@ -89,7 +89,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 100.00m,
                             CarReg = "XYZ789",
                             DriverName = "Bob Johnson",
-                            NoteDate = new DateTime(2024, 9, 18, 9, 27, 8, 981, DateTimeKind.Local).AddTicks(9729),
+                            NoteDate = new DateTime(2024, 9, 24, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2210),
                             NoteDescription = "Vehicle maintenance",
                             ResponsibleEmployee = "Admin User",
                             TotalBeloppIn = 0.00m,
@@ -142,6 +142,82 @@ namespace DeliverCompany.Migrations
                             Password = "password123",
                             Role = "Employee"
                         });
+                });
+
+            modelBuilder.Entity("DeliverCompany.Models.Event", b =>
+                {
+                    b.Property<int>("EventID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventID"));
+
+                    b.Property<decimal>("BeloppIn")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("BeloppUt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("DriverID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("NoteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NoteDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EventID");
+
+                    b.HasIndex("DriverID");
+
+                    b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            EventID = 1,
+                            BeloppIn = 400.00m,
+                            BeloppUt = 50.00m,
+                            DriverID = 1,
+                            NoteDate = new DateTime(2024, 9, 25, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2228),
+                            NoteDescription = "Delivered goods to customer"
+                        },
+                        new
+                        {
+                            EventID = 2,
+                            BeloppIn = 0.00m,
+                            BeloppUt = 300.00m,
+                            DriverID = 2,
+                            NoteDate = new DateTime(2024, 9, 24, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2231),
+                            NoteDescription = "Vehicle repaired"
+                        },
+                        new
+                        {
+                            EventID = 3,
+                            BeloppIn = 0.00m,
+                            BeloppUt = 100.00m,
+                            DriverID = 1,
+                            NoteDate = new DateTime(2024, 9, 23, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2233),
+                            NoteDescription = "Picked up supplies"
+                        });
+                });
+
+            modelBuilder.Entity("DeliverCompany.Models.Event", b =>
+                {
+                    b.HasOne("DeliverCompany.Models.Driver", "Driver")
+                        .WithMany("Events")
+                        .HasForeignKey("DriverID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Driver");
+                });
+
+            modelBuilder.Entity("DeliverCompany.Models.Driver", b =>
+                {
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }
