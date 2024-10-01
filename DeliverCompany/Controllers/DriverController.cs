@@ -74,46 +74,63 @@ namespace DeliverCompany.Controllers
             return View(driver);
         }
 
+
+
         // POST: Driver/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DriverID,DriverName,CarReg,NoteDate,NoteDescription,ResponsibleEmployee,BeloppUt,BeloppIn,TotalBeloppUt,TotalBeloppIn")] Driver driver)
+        public async Task<IActionResult> Edit(int id, [Bind("DriverID,DriverName,CarReg,ResponsibleEmployee")] Driver driver)
         {
             if (id != driver.DriverID)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
+                var existingDriver = await _context.Drivers.FindAsync(id);
+                if (existingDriver == null)
+                {
+                    return NotFound();
+                }
 
-                try
-                {
-                    _context.Update(driver);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DriverExists(driver.DriverID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                // Uppdatera fälten utan att använda ModelState.IsValid
+                existingDriver.DriverName = driver.DriverName;
+                existingDriver.CarReg = driver.CarReg;
+                existingDriver.ResponsibleEmployee = driver.ResponsibleEmployee;
+
+                // Försök att spara ändringarna
+                await _context.SaveChangesAsync();
+
+                // Omdirigera till Index efter att ändringarna sparats
                 return RedirectToAction(nameof(Index));
             }
-            return View(driver);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DriverExists(driver.DriverID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
+            return View(driver); // Skicka tillbaka användaren till samma vy om något går fel
         }
 
-        private bool DriverExists(int id)
-        {
-            return _context.Drivers.Any(e => e.DriverID == id);
-        }
 
-        // GET: Employee/Delete/5
+
+
+
+
+
+        // GET: Driver/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -121,30 +138,31 @@ namespace DeliverCompany.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
-            if (employee == null)
+            var driver = await _context.Drivers
+                .FirstOrDefaultAsync(m => m.DriverID == id);
+            if (driver == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(driver);
         }
 
-        // POST: Employee/Delete/5
+        // POST: Driver/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
+            var driver = await _context.Drivers.FindAsync(id);
+            _context.Drivers.Remove(driver);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmployeeExists(int id)
+
+        private bool DriverExists(int id)
         {
-            return _context.Employees.Any(e => e.EmployeeId == id);
+            return _context.Drivers.Any(e => e.DriverID == id);
         }
 
         // GET: Driver/AddEvent/1

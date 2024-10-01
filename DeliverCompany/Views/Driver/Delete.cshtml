@@ -1,18 +1,19 @@
-﻿@model Employee
+﻿@model Driver
 
-<div class="delete-confirm-container">
-    <h2 class="text-center mb-4">Delete Employee</h2>
+<div>
+    <h2 class="text-center mb-4">Delete Driver</h2>
 
-    <h3 class="text-center text-danger">Are you sure you want to delete this employee?</h3>
 
-    <div class="employee-details text-center">
-        <h4>@Model.Name</h4>
-        <p>Email: @Model.Email</p>
-        <p>Role: @Model.Role</p>
+    <div class="driver-details text-center">
+        <h4>@Model.DriverName</h4>
+        <p>Car Registration: @Model.CarReg</p>
+        <p>Responsible Employee: @Model.ResponsibleEmployee</p>
+        <p>Total Belopp In: @Model.TotalBeloppIn</p>
+        <p>Total Belopp Ut: @Model.TotalBeloppUt</p>
     </div>
 
-    <form asp-action="DeleteConfirmed" class="text-center">
-        <input type="hidden" asp-for="EmployeeId" />
+    <form asp-action="Delete" asp-controller="Driver" method="post" class="text-center">
+        <input type="hidden" asp-for="DriverID" />
         <div class="form-actions">
             <button type="submit" class="btn btn-danger">Delete</button>
             <a asp-action="Index" class="btn btn-secondary">Cancel</a>

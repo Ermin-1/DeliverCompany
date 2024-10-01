@@ -1,73 +1,5 @@
 ﻿@model IEnumerable<Driver>
 
-@* <style>
-    body {
-        background-color: #f0f8ff; /* Ljusblå bakgrund för att skapa ett mjukt intryck */
-    }
-
-    .container {
-        background-color: #ffffff; /* Vit bakgrund för innehållsbehållare */
-        border-radius: 15px; /* Rundade hörn för behållaren */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Liten skugga för en lyft effekt */
-        padding: 30px;
-    }
-
-    h2 {
-        color: #333333;
-        font-weight: bold;
-    }
-
-    .form-control {
-        border-radius: 10px; /* Rundade hörn för formulärfält */
-        border: 1px solid #dcdcdc;
-    }
-
-    .btn-primary {
-        background-color: #007bff; /* Bootstrap primärblå */
-        border-radius: 20px; /* Rundade hörn för knappar */
-        border: none;
-        padding: 10px 20px;
-    }
-
-    .btn-info, .btn-warning, .btn-danger {
-        border-radius: 20px; /* Rundade hörn för action-knappar */
-        padding: 8px 15px;
-    }
-
-    .btn-info {
-        background-color: #17a2b8;
-        border: none;
-    }
-
-    .btn-warning {
-        background-color: #ffc107;
-        border: none;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border: none;
-    }
-
-    .table {
-        border-radius: 10px;
-        overflow: hidden; /* För att undvika att innehåll flyter över */
-    }
-
-        .table thead {
-            background-color: #007bff; /* Mörkblå rubrik */
-            color: white;
-        }
-
-        .table tbody tr:hover {
-            background-color: #f1f1f1; /* Lätt grå färg när man hovrar över tabellrader */
-        }
-
-        .table td, .table th {
-            vertical-align: middle; /* Snyggare vertikal justering */
-        }
-</style> *@
-
 
     <h2 class="mb-4 text-center">Driver List</h2>
 
@@ -126,7 +58,7 @@
                             <a href="@Url.Action("Edit", new { id = driver.DriverID })" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="@Url.Action("Delete", new { id = driver.DriverID })" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this driver?');">
+                            <a href="@Url.Action("Delete", new { id = driver.DriverID })" class="btn btn-sm btn-danger">
                                 <i class="fas fa-trash-alt"></i> Delete
                             </a>
                         </td>

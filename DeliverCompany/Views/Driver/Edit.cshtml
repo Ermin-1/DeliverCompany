@@ -1,68 +1,28 @@
 ﻿@model Driver
 
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="DriverID" />
 
-    <h2 class="text-center mb-4">Edit Driver</h2>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Lägg till valideringssammanfattning -->
 
-    <form asp-action="Edit" method="post">
-        <input type="hidden" asp-for="DriverID" />
+    <div class="form-group">
+        <label asp-for="DriverName"></label>
+        <input asp-for="DriverName" class="form-control" />
+        <span asp-validation-for="DriverName" class="text-danger"></span>
+    </div>
 
-        <div class="form-group">
-            <label asp-for="DriverName"></label>
-            <input asp-for="DriverName" class="form-control" />
-            <span asp-validation-for="DriverName" class="text-danger"></span>
-        </div>
+    <div class="form-group">
+        <label asp-for="CarReg"></label>
+        <input asp-for="CarReg" class="form-control" />
+        <span asp-validation-for="CarReg" class="text-danger"></span>
+    </div>
 
-        <div class="form-group">
-            <label asp-for="CarReg"></label>
-            <input asp-for="CarReg" class="form-control" />
-            <span asp-validation-for="CarReg" class="text-danger"></span>
-        </div>
+    <div class="form-group">
+        <label asp-for="ResponsibleEmployee"></label>
+        <input asp-for="ResponsibleEmployee" class="form-control" />
+        <span asp-validation-for="ResponsibleEmployee" class="text-danger"></span>
+    </div>
 
-        <div class="form-group">
-            <label asp-for="NoteDate"></label>
-            <input asp-for="NoteDate" class="form-control" type="date" />
-            <span asp-validation-for="NoteDate" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="NoteDescription"></label>
-            <input asp-for="NoteDescription" class="form-control" />
-            <span asp-validation-for="NoteDescription" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="ResponsibleEmployee"></label>
-            <input asp-for="ResponsibleEmployee" class="form-control" />
-            <span asp-validation-for="ResponsibleEmployee" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="BeloppUt"></label>
-            <input asp-for="BeloppUt" class="form-control" type="number" />
-            <span asp-validation-for="BeloppUt" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="BeloppIn"></label>
-            <input asp-for="BeloppIn" class="form-control" type="number" />
-            <span asp-validation-for="BeloppIn" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="TotalBeloppUt"></label>
-            <input asp-for="TotalBeloppUt" class="form-control" type="number" />
-            <span asp-validation-for="TotalBeloppUt" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="TotalBeloppIn"></label>
-            <input asp-for="TotalBeloppIn" class="form-control" type="number" />
-            <span asp-validation-for="TotalBeloppIn" class="text-danger"></span>
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-        </div>
-    </form>
-</div>
+    <button type="submit" class="btn btn-primary">Spara</button>
+</form>
