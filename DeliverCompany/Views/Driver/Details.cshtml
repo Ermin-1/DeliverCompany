@@ -1,33 +1,41 @@
 ﻿@model Driver
 
-<h2>Details for @Model.DriverName</h2>
 
-<p>Car Registration: @Model.CarReg</p>
-<p>Responsible Employee: @Model.ResponsibleEmployee</p>
-<p>Total Belopp In: @Model.TotalBeloppIn</p>
-<p>Total Belopp Ut: @Model.TotalBeloppUt</p>
 
-<h3>Driver Events</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Event Date</th>
-            <th>Description</th>
-            <th>Belopp In</th>
-            <th>Belopp Ut</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var driverEvent in Model.Events)  // Byter från 'event' till 'driverEvent'
-        {
+    <h2>Details for @Model.DriverName</h2>
+
+    <p><strong>Car Registration:</strong> @Model.CarReg</p>
+    <p><strong>Responsible Employee:</strong> @Model.ResponsibleEmployee</p>
+    <p><strong>Total Belopp In:</strong> @Model.TotalBeloppIn</p>
+    <p><strong>Total Belopp Ut:</strong> @Model.TotalBeloppUt</p>
+
+    <h3>Driver Events</h3>
+
+    <!-- Table for driver events -->
+    <table class="table table-hover table-bordered">
+        <thead>
             <tr>
-                <td>@driverEvent.NoteDate.ToShortDateString()</td>
-                <td>@driverEvent.NoteDescription</td>
-                <td>@driverEvent.BeloppIn</td>
-                <td>@driverEvent.BeloppUt</td>
+                <th>Event Date</th>
+                <th>Description</th>
+                <th>Belopp In</th>
+                <th>Belopp Ut</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var driverEvent in Model.Events)  // Byter från 'event' till 'driverEvent'
+            {
+                <tr>
+                    <td>@driverEvent.NoteDate.ToShortDateString()</td>
+                    <td>@driverEvent.NoteDescription</td>
+                    <td>@driverEvent.BeloppIn</td>
+                    <td>@driverEvent.BeloppUt</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<a href="@Url.Action("CreateEvent", new { id = Model.DriverID })">Add Event</a>
+    <!-- Button to add a new event -->
+    <a href="@Url.Action("AddEvent", new { id = Model.DriverID })" class="btn-primary">
+        <i class="fas fa-plus"></i> Add Event
+    </a>
+</div>

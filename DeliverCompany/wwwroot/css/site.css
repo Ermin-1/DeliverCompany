@@ -20,3 +20,256 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+body {
+    background-color: #f0f8ff; /* Ljusblå bakgrund */
+}
+
+h2, h3 {
+    color: #333333;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.details-container {
+    background-color: #ffffff;
+    border-radius: 15px; /* Rundade hörn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+    .details-container p {
+        font-size: 16px;
+        color: #555555;
+        margin-bottom: 10px;
+    }
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+    .table thead {
+        background-color: #007bff; /* Mörkblå rubrik */
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f1f1; /* Lätt grå färg när man hovrar */
+    }
+
+.btn-primary {
+    background-color: #007bff;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    font-size: 16px;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+
+body {
+    background-color: #f0f8ff; /* Ljusblå bakgrund för att skapa ett mjukt intryck */
+}
+
+.container {
+    background-color: #ffffff; /* Vit bakgrund för innehållsbehållare */
+    border-radius: 15px; /* Rundade hörn för behållaren */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Liten skugga för en lyft effekt */
+    padding: 30px;
+}
+
+h2 {
+    color: #333333;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 10px; /* Rundade hörn för formulärfält */
+    border: 1px solid #dcdcdc;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primärblå */
+    border-radius: 20px; /* Rundade hörn för knappar */
+    border: none;
+    padding: 10px 20px;
+}
+
+.btn-info, .btn-warning, .btn-danger {
+    border-radius: 20px; /* Rundade hörn för action-knappar */
+    padding: 8px 15px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border: none;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden; /* För att undvika att innehåll flyter över */
+}
+
+    .table thead {
+        background-color: #007bff; /* Mörkblå rubrik */
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f1f1; /* Lätt grå färg när man hovrar över tabellrader */
+    }
+
+    .table td, .table th {
+        vertical-align: middle; /* Snyggare vertikal justering */
+    }
+
+body {
+    background-color: #f0f8ff; /* Ljusblå bakgrund */
+}
+
+.edit-driver-container {
+    background-color: #ffffff;
+    border-radius: 15px; /* Rundade hörn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Liten skugga */
+    padding: 30px;
+    max-width: 600px;
+    margin: 40px auto; /* Centrerar formuläret på sidan */
+}
+
+h2 {
+    color: #333333;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 10px; /* Rundade hörn för input-fälten */
+    border: 1px solid #dcdcdc;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+}
+
+.btn-secondary {
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    color: white;
+    background-color: #6c757d;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+
+body {
+    background-color: #f0f8ff; /* Ljusblå bakgrund */
+}
+
+.delete-confirm-container {
+    background-color: #ffffff;
+    border-radius: 15px; /* Rundade hörn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Skugga */
+    padding: 30px;
+    max-width: 600px;
+    margin: 40px auto; /* Centrerar innehållet */
+}
+
+h2, h3 {
+    color: #333333;
+    font-weight: bold;
+}
+
+    h3.text-danger {
+        color: #dc3545; /* Röd färg för varning */
+    }
+
+.employee-details h4 {
+    font-weight: bold;
+    color: #333333;
+}
+
+.employee-details p {
+    color: #555555;
+    margin-bottom: 10px;
+}
+
+.form-actions {
+    margin-top: 20px;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+}
+
+.btn-secondary {
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    color: white;
+    background-color: #6c757d;
+    font-size: 16px;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}

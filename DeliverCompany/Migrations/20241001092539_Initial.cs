@@ -78,8 +78,13 @@ namespace DeliverCompany.Migrations
                 columns: new[] { "DriverID", "BeloppIn", "BeloppUt", "CarReg", "DriverName", "NoteDate", "NoteDescription", "ResponsibleEmployee", "TotalBeloppIn", "TotalBeloppUt" },
                 values: new object[,]
                 {
-                    { 1, 500.00m, 200.00m, "ABC123", "Alice Smith", new DateTime(2024, 9, 25, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2163), "Completed delivery route", "John Doe", 500.00m, 200.00m },
-                    { 2, 0.00m, 100.00m, "XYZ789", "Bob Johnson", new DateTime(2024, 9, 24, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2210), "Vehicle maintenance", "Admin User", 0.00m, 100.00m }
+                    { 1, 500.00m, 200.00m, "ABC123", "Alice Smith", new DateTime(2024, 9, 30, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9055), "Completed delivery route", "John Doe", 500.00m, 200.00m },
+                    { 2, 0.00m, 100.00m, "XYZ789", "Bob Johnson", new DateTime(2024, 9, 29, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9098), "Vehicle maintenance", "Admin User", 0.00m, 100.00m },
+                    { 3, 400.00m, 150.00m, "LMN456", "Michael Brown", new DateTime(2024, 9, 28, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9101), "Delivered groceries", "Jane Doe", 400.00m, 150.00m },
+                    { 4, 600.00m, 200.00m, "JKL789", "Emma Wilson", new DateTime(2024, 9, 27, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9104), "Completed overnight delivery", "Tom Hardy", 600.00m, 200.00m },
+                    { 5, 700.00m, 300.00m, "OPQ123", "Oliver Martinez", new DateTime(2024, 9, 26, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9107), "Completed furniture delivery", "Emily Davis", 700.00m, 300.00m },
+                    { 6, 1000.00m, 400.00m, "RST456", "Lucas Green", new DateTime(2024, 9, 25, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9110), "Delivered medical supplies", "Sophia Turner", 1000.00m, 400.00m },
+                    { 7, 1200.00m, 500.00m, "UVW789", "Liam White", new DateTime(2024, 9, 24, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9112), "Delivered electronics", "Luke Perry", 1200.00m, 500.00m }
                 });
 
             migrationBuilder.InsertData(
@@ -88,7 +93,12 @@ namespace DeliverCompany.Migrations
                 values: new object[,]
                 {
                     { 1, "admin@example.com", "Admin User", "admin123", "Admin" },
-                    { 2, "john@example.com", "John Doe", "password123", "Employee" }
+                    { 2, "john@example.com", "John Doe", "password123", "Employee" },
+                    { 3, "jane@example.com", "Jane Doe", "password123", "Employee" },
+                    { 4, "tom@example.com", "Tom Hardy", "hardy123", "Employee" },
+                    { 5, "emily@example.com", "Emily Davis", "davis123", "Employee" },
+                    { 6, "sophia@example.com", "Sophia Turner", "turner123", "Employee" },
+                    { 7, "luke@example.com", "Luke Perry", "perry123", "Employee" }
                 });
 
             migrationBuilder.InsertData(
@@ -96,9 +106,14 @@ namespace DeliverCompany.Migrations
                 columns: new[] { "EventID", "BeloppIn", "BeloppUt", "DriverID", "NoteDate", "NoteDescription" },
                 values: new object[,]
                 {
-                    { 1, 400.00m, 50.00m, 1, new DateTime(2024, 9, 25, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2228), "Delivered goods to customer" },
-                    { 2, 0.00m, 300.00m, 2, new DateTime(2024, 9, 24, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2231), "Vehicle repaired" },
-                    { 3, 0.00m, 100.00m, 1, new DateTime(2024, 9, 23, 10, 42, 27, 927, DateTimeKind.Local).AddTicks(2233), "Picked up supplies" }
+                    { 1, 400.00m, 50.00m, 1, new DateTime(2024, 9, 30, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9230), "Delivered goods to customer" },
+                    { 2, 0.00m, 300.00m, 2, new DateTime(2024, 9, 29, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9233), "Vehicle repaired" },
+                    { 3, 0.00m, 100.00m, 1, new DateTime(2024, 9, 28, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9235), "Picked up supplies" },
+                    { 4, 400.00m, 50.00m, 3, new DateTime(2024, 9, 27, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9238), "Delivered groceries" },
+                    { 5, 600.00m, 100.00m, 4, new DateTime(2024, 9, 26, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9240), "Completed overnight delivery" },
+                    { 6, 700.00m, 150.00m, 5, new DateTime(2024, 9, 25, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9242), "Furniture delivered" },
+                    { 7, 1000.00m, 200.00m, 6, new DateTime(2024, 9, 24, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9244), "Delivered medical supplies" },
+                    { 8, 1200.00m, 300.00m, 7, new DateTime(2024, 9, 23, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9246), "Delivered electronics" }
                 });
 
             migrationBuilder.CreateIndex(

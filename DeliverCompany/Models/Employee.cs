@@ -1,6 +1,8 @@
-﻿namespace DeliverCompany.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace DeliverCompany.Models
 {
-    public class Employee
+    public class Employee 
     {
         public int EmployeeId { get; set; }
         public string Name { get; set; }

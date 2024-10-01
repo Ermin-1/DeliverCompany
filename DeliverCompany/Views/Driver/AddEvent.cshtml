@@ -1,0 +1,40 @@
+﻿@model DeliverCompany.Models.Event
+
+<form asp-action="AddEvent" method="post">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <label asp-for="NoteDescription"></label>
+        <input asp-for="NoteDescription" class="form-control" />
+        <span asp-validation-for="NoteDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NoteDate"></label>
+        <input asp-for="NoteDate" type="date" class="form-control" />
+        <span asp-validation-for="NoteDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BeloppIn"></label>
+        <input asp-for="BeloppIn" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="BeloppIn" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BeloppUt"></label>
+        <input asp-for="BeloppUt" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="BeloppUt" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="DriverID" />
+
+    <button type="submit" class="btn btn-primary">Lägg till händelse</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -147,7 +147,7 @@ namespace DeliverCompany.Controllers
             return _context.Employees.Any(e => e.EmployeeId == id);
         }
 
-        // GET: Driver/AddEvent/5
+        // GET: Driver/AddEvent/1
         public IActionResult AddEvent(int? id)
         {
             if (id == null)
@@ -165,19 +165,38 @@ namespace DeliverCompany.Controllers
             return View(model);
         }
 
+
         // POST: Driver/AddEvent/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddEvent([Bind("EventID,DriverID,EventDate,Description,BeloppIn,BeloppUt")] Event @event)
+        public async Task<IActionResult> AddEvent([Bind("EventID,DriverID,EventDate,NoteDescription,BeloppIn,BeloppUt")] Event @event)
         {
             if (ModelState.IsValid)
             {
-                _context.Events.Add(@event);
-                await _context.SaveChangesAsync();
+                var driver = await _context.Drivers.FindAsync(@event.DriverID);
+                if (driver == null)
+                {
+                    ModelState.AddModelError("", "Föraren hittades inte.");
+                    return View(@event);
+                }
+
+                try
+                {
+                    _context.Events.Add(@event);
+                    await _context.SaveChangesAsync();  // Viktigt att spara till databasen
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message); // Lägg till logging om något går fel
+                }
+
                 return RedirectToAction("Details", new { id = @event.DriverID });
             }
+
+            // Visa felmeddelanden om något är fel
             return View(@event);
         }
+
 
         public async Task<IActionResult> Details(int? id)
         {

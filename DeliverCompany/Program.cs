@@ -1,4 +1,5 @@
 ﻿using DeliverCompany.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliverCompany
@@ -14,7 +15,13 @@ namespace DeliverCompany
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
+            //Identity Service
+            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
+    
+
         
+         
+
 
             // L�gg till IHttpContextAccessor
             builder.Services.AddHttpContextAccessor();
@@ -34,6 +41,7 @@ namespace DeliverCompany
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
