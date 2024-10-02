@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliverCompany.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241001092539_Initial")]
-    partial class Initial
+    [Migration("20241002125043_Initials")]
+    partial class Initials
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,6 @@ namespace DeliverCompany.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NoteDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResponsibleEmployee")
@@ -76,7 +75,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 200.00m,
                             CarReg = "ABC123",
                             DriverName = "Alice Smith",
-                            NoteDate = new DateTime(2024, 9, 30, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9055),
+                            NoteDate = new DateTime(2024, 10, 1, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(3893),
                             NoteDescription = "Completed delivery route",
                             ResponsibleEmployee = "John Doe",
                             TotalBeloppIn = 500.00m,
@@ -89,7 +88,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 100.00m,
                             CarReg = "XYZ789",
                             DriverName = "Bob Johnson",
-                            NoteDate = new DateTime(2024, 9, 29, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9098),
+                            NoteDate = new DateTime(2024, 9, 30, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(3938),
                             NoteDescription = "Vehicle maintenance",
                             ResponsibleEmployee = "Admin User",
                             TotalBeloppIn = 0.00m,
@@ -102,7 +101,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 150.00m,
                             CarReg = "LMN456",
                             DriverName = "Michael Brown",
-                            NoteDate = new DateTime(2024, 9, 28, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9101),
+                            NoteDate = new DateTime(2024, 9, 29, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(3943),
                             NoteDescription = "Delivered groceries",
                             ResponsibleEmployee = "Jane Doe",
                             TotalBeloppIn = 400.00m,
@@ -115,7 +114,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 200.00m,
                             CarReg = "JKL789",
                             DriverName = "Emma Wilson",
-                            NoteDate = new DateTime(2024, 9, 27, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9104),
+                            NoteDate = new DateTime(2024, 9, 28, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(3946),
                             NoteDescription = "Completed overnight delivery",
                             ResponsibleEmployee = "Tom Hardy",
                             TotalBeloppIn = 600.00m,
@@ -128,7 +127,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 300.00m,
                             CarReg = "OPQ123",
                             DriverName = "Oliver Martinez",
-                            NoteDate = new DateTime(2024, 9, 26, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9107),
+                            NoteDate = new DateTime(2024, 9, 27, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(3950),
                             NoteDescription = "Completed furniture delivery",
                             ResponsibleEmployee = "Emily Davis",
                             TotalBeloppIn = 700.00m,
@@ -141,7 +140,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 400.00m,
                             CarReg = "RST456",
                             DriverName = "Lucas Green",
-                            NoteDate = new DateTime(2024, 9, 25, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9110),
+                            NoteDate = new DateTime(2024, 9, 26, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(3953),
                             NoteDescription = "Delivered medical supplies",
                             ResponsibleEmployee = "Sophia Turner",
                             TotalBeloppIn = 1000.00m,
@@ -154,7 +153,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 500.00m,
                             CarReg = "UVW789",
                             DriverName = "Liam White",
-                            NoteDate = new DateTime(2024, 9, 24, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9112),
+                            NoteDate = new DateTime(2024, 9, 25, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(3956),
                             NoteDescription = "Delivered electronics",
                             ResponsibleEmployee = "Luke Perry",
                             TotalBeloppIn = 1200.00m,
@@ -164,89 +163,71 @@ namespace DeliverCompany.Migrations
 
             modelBuilder.Entity("DeliverCompany.Models.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EmployeeId");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
-                    b.ToTable("Employees");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasData(
-                        new
-                        {
-                            EmployeeId = 1,
-                            Email = "admin@example.com",
-                            Name = "Admin User",
-                            Password = "admin123",
-                            Role = "Admin"
-                        },
-                        new
-                        {
-                            EmployeeId = 2,
-                            Email = "john@example.com",
-                            Name = "John Doe",
-                            Password = "password123",
-                            Role = "Employee"
-                        },
-                        new
-                        {
-                            EmployeeId = 3,
-                            Email = "jane@example.com",
-                            Name = "Jane Doe",
-                            Password = "password123",
-                            Role = "Employee"
-                        },
-                        new
-                        {
-                            EmployeeId = 4,
-                            Email = "tom@example.com",
-                            Name = "Tom Hardy",
-                            Password = "hardy123",
-                            Role = "Employee"
-                        },
-                        new
-                        {
-                            EmployeeId = 5,
-                            Email = "emily@example.com",
-                            Name = "Emily Davis",
-                            Password = "davis123",
-                            Role = "Employee"
-                        },
-                        new
-                        {
-                            EmployeeId = 6,
-                            Email = "sophia@example.com",
-                            Name = "Sophia Turner",
-                            Password = "turner123",
-                            Role = "Employee"
-                        },
-                        new
-                        {
-                            EmployeeId = 7,
-                            Email = "luke@example.com",
-                            Name = "Luke Perry",
-                            Password = "perry123",
-                            Role = "Employee"
-                        });
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("DeliverCompany.Models.Event", b =>
@@ -286,7 +267,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 400.00m,
                             BeloppUt = 50.00m,
                             DriverID = 1,
-                            NoteDate = new DateTime(2024, 9, 30, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9230),
+                            NoteDate = new DateTime(2024, 10, 1, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(4102),
                             NoteDescription = "Delivered goods to customer"
                         },
                         new
@@ -295,7 +276,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 0.00m,
                             BeloppUt = 300.00m,
                             DriverID = 2,
-                            NoteDate = new DateTime(2024, 9, 29, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9233),
+                            NoteDate = new DateTime(2024, 9, 30, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(4105),
                             NoteDescription = "Vehicle repaired"
                         },
                         new
@@ -304,7 +285,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 0.00m,
                             BeloppUt = 100.00m,
                             DriverID = 1,
-                            NoteDate = new DateTime(2024, 9, 28, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9235),
+                            NoteDate = new DateTime(2024, 9, 29, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(4108),
                             NoteDescription = "Picked up supplies"
                         },
                         new
@@ -313,7 +294,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 400.00m,
                             BeloppUt = 50.00m,
                             DriverID = 3,
-                            NoteDate = new DateTime(2024, 9, 27, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9238),
+                            NoteDate = new DateTime(2024, 9, 28, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(4110),
                             NoteDescription = "Delivered groceries"
                         },
                         new
@@ -322,7 +303,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 600.00m,
                             BeloppUt = 100.00m,
                             DriverID = 4,
-                            NoteDate = new DateTime(2024, 9, 26, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9240),
+                            NoteDate = new DateTime(2024, 9, 27, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(4112),
                             NoteDescription = "Completed overnight delivery"
                         },
                         new
@@ -331,7 +312,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 700.00m,
                             BeloppUt = 150.00m,
                             DriverID = 5,
-                            NoteDate = new DateTime(2024, 9, 25, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9242),
+                            NoteDate = new DateTime(2024, 9, 26, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(4114),
                             NoteDescription = "Furniture delivered"
                         },
                         new
@@ -340,7 +321,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 1000.00m,
                             BeloppUt = 200.00m,
                             DriverID = 6,
-                            NoteDate = new DateTime(2024, 9, 24, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9244),
+                            NoteDate = new DateTime(2024, 9, 25, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(4116),
                             NoteDescription = "Delivered medical supplies"
                         },
                         new
@@ -349,9 +330,142 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 1200.00m,
                             BeloppUt = 300.00m,
                             DriverID = 7,
-                            NoteDate = new DateTime(2024, 9, 23, 11, 25, 38, 514, DateTimeKind.Local).AddTicks(9246),
+                            NoteDate = new DateTime(2024, 9, 24, 14, 50, 43, 73, DateTimeKind.Local).AddTicks(4118),
                             NoteDescription = "Delivered electronics"
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("DeliverCompany.Models.Event", b =>
@@ -363,6 +477,57 @@ namespace DeliverCompany.Migrations
                         .IsRequired();
 
                     b.Navigation("Driver");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("DeliverCompany.Models.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("DeliverCompany.Models.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DeliverCompany.Models.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("DeliverCompany.Models.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DeliverCompany.Models.Driver", b =>

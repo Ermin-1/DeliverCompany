@@ -1,4 +1,5 @@
 ﻿using DeliverCompany.Data;
+using DeliverCompany.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,24 +7,23 @@ namespace DeliverCompany
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-        
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
-            //Identity Service
-            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
-    
+            // Configure the database context
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
-        
-         
+            // Configure Identity services for Employee and IdentityRole
+            builder.Services.AddIdentity<Employee, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
-
-            // L�gg till IHttpContextAccessor
+            // Add IHttpContextAccessor
             builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
@@ -32,8 +32,14 @@ namespace DeliverCompany
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+
+            // Seed roles and users
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                await IdentitySeeder.SeedRolesAndUsersAsync(services);
             }
 
             app.UseHttpsRedirection();

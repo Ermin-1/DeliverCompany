@@ -1,5 +1,6 @@
 ﻿using DeliverCompany.Data;
 using DeliverCompany.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,7 @@ namespace DeliverCompany.Controllers
             _logger = logger;
         }
 
-
+        //[Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Index(string searchString, DateTime? fromNoteDate, DateTime? toNoteDate)
         {
             var drivers = _context.Drivers.Include(d => d.Events).AsQueryable();
@@ -39,13 +40,14 @@ namespace DeliverCompany.Controllers
 
 
         // GET: Driver/Create
+        //[Authorize(Roles = "Admin, Employee")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Driver/Create
-
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DriverID,DriverName,CarReg,ResponsibleEmployee")] Driver driver)
@@ -72,11 +74,12 @@ namespace DeliverCompany.Controllers
             Response.StatusCode = 400;
             return View(driver);
         }
-    
 
 
-// GET: Driver/Edit/5
-public async Task<IActionResult> Edit(int? id)
+
+        // GET: Driver/Edit/5
+        [Authorize(Roles = "Admin, Employee")]
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -92,6 +95,7 @@ public async Task<IActionResult> Edit(int? id)
         }
 
         // POST: Driver/Edit/5
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DriverID,DriverName,CarReg,ResponsibleEmployee")] Driver driver)
@@ -137,6 +141,7 @@ public async Task<IActionResult> Edit(int? id)
 
 
         // GET: Driver/Delete/5
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,6 +160,7 @@ public async Task<IActionResult> Edit(int? id)
         }
 
         // POST: Driver/Delete/5
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -172,6 +178,7 @@ public async Task<IActionResult> Edit(int? id)
         }
 
         // GET: Driver/AddEvent/1
+        [Authorize(Roles = "Admin, Employee")]
         public IActionResult AddEvent(int? id)
         {
             if (id == null)
@@ -190,6 +197,7 @@ public async Task<IActionResult> Edit(int? id)
         }
 
         // POST: Driver/AddEvent/5
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEvent([Bind("EventID,DriverID,NoteDate,NoteDescription,BeloppIn,BeloppUt")] Event @event)
@@ -249,7 +257,7 @@ public async Task<IActionResult> Edit(int? id)
 
 
 
-
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();

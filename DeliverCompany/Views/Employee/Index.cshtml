@@ -1,36 +1,29 @@
-﻿@model IEnumerable<Employee>
+﻿@* @model IEnumerable<DeliverCompany.Models.Employee>
 
-<h2>Employee List</h2>
-
-<form method="get">
-    <p>
-        Search by name: <input type="text" name="searchString" />
-        <input type="submit" value="Search" />
-    </p>
-</form>
+<h2>Employees</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Role</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var employee in Model)
         {
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Email</td>
-                <td>@item.Role</td>
+                <td>@employee.Name</td>
+                <td>@employee.Email</td>
                 <td>
-                    <a href="@Url.Action("Edit", new { id = item.EmployeeId })">Edit</a> |
-                    <a href="@Url.Action("Details", new { id = item.EmployeeId })">Details</a> |
-                    <a href="@Url.Action("Delete", new { id = item.EmployeeId })">Delete</a>
+                    <a href="/Employee/Edit/@employee.Id" class="btn btn-primary">Edit</a>
+                    <a href="/Employee/Delete/@employee.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<a href="/Employee/Create" class="btn btn-success">Add New Employee</a>
+ *@

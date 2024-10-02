@@ -1,62 +1,62 @@
-﻿using DeliverCompany.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using DeliverCompany.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DeliverCompany.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly UserManager<Employee> _userManager;
 
-        public EmployeeController(AppDbContext context)
+        public EmployeeController(UserManager<Employee> userManager)
         {
-            _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Employee/Index
-        public async Task<IActionResult> Index(string searchString)
+        // Visa alla anställda (Index)
+        public IActionResult Index()
         {
-            var employees = from e in _context.Employees select e;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                employees = employees.Where(s => s.Name.Contains(searchString));
-            }
-
-            return View(await employees.ToListAsync());
+            var employees = _userManager.Users;
+            return View(employees); // Returnerar en lista av Employee
         }
 
         // GET: Employee/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         // POST: Employee/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeId,Name,Email,Password,Role")] Employee employee)
+        public async Task<IActionResult> Create(string email, string name, string password)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+                var employee = new Employee
+                {
+                    UserName = email,
+                    Email = email,
+                    Name = name
+                };
 
-            Response.StatusCode = 400;
-            return View(employee);
+                var result = await _userManager.CreateAsync(employee, password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+            return View();
         }
 
         // GET: Employee/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = await _userManager.FindByIdAsync(id);
             if (employee == null)
             {
                 return NotFound();
@@ -66,70 +66,59 @@ namespace DeliverCompany.Controllers
 
         // POST: Employee/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,Name,Email,Password,Role")] Employee employee)
+        public async Task<IActionResult> Edit(string id, string email, string name)
         {
-            if (id != employee.EmployeeId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(employee);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EmployeeExists(employee.EmployeeId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(employee);
-        }
-
-        private bool EmployeeExists(int id)
-        {
-            return _context.Employees.Any(e => e.EmployeeId == id);
-        }
-
-        // GET: Employee/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if( id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeId == id);
+            var employee = await _userManager.FindByIdAsync(id);
             if (employee == null)
             {
                 return NotFound();
             }
 
+            employee.Email = email;
+            employee.Name = name;
+
+            var result = await _userManager.UpdateAsync(employee);
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
             return View(employee);
-        
+        }
+
+        // GET: Employee/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            var employee = await _userManager.FindByIdAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return View(employee);
         }
 
         // POST: Employee/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var employee = await _userManager.FindByIdAsync(id);
+            if (employee != null)
+            {
+                var result = await _userManager.DeleteAsync(employee);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+            return View(employee);
         }
-       
     }
 }
