@@ -3,6 +3,13 @@
 
     <h2 class="mb-4 text-center">Driver List</h2>
 
+<!-- Knapp för att lägga till en ny förare -->
+<div class="text-right mb-4">
+    <a href="@Url.Action("Create", "Driver")" class="btn btn-success">
+        <i class="fas fa-plus"></i> Add New Driver
+    </a>
+</div>
+
     <!-- Search form -->
     <div class="search-bar d-flex justify-content-center mb-4">
         <form class="form-inline" method="get">
@@ -44,27 +51,39 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var driver in Model)
-                {
-                    <tr>
-                        <td>@driver.DriverName</td>
-                        <td>@driver.CarReg</td>
-                        <td>@driver.NoteDate.ToShortDateString()</td>
-                        <td>
-                            <a href="@Url.Action("Details", new { id = driver.DriverID })" class="btn btn-sm btn-info">
-                                <i class="fas fa-info-circle"></i> Details
-                            </a>
-                            <a href="@Url.Action("Edit", new { id = driver.DriverID })" class="btn btn-sm btn-warning">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <a href="@Url.Action("Delete", new { id = driver.DriverID })" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+        <tbody>
+            @foreach (var driver in Model)
+            {
+                var latestEventDate = driver.Events?.OrderByDescending(e => e.NoteDate).FirstOrDefault()?.NoteDate;
+
+                <tr>
+                    <td>@driver.DriverName</td>
+                    <td>@driver.CarReg</td>
+                    <td>
+                        @if (latestEventDate.HasValue)
+                        {
+                            @latestEventDate.Value.ToShortDateString()
+                        }
+                        else
+                        {
+                            <span>No events</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = driver.DriverID })" class="btn btn-sm btn-info">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = driver.DriverID })" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = driver.DriverID })" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
         </table>
     </div>
 </div>

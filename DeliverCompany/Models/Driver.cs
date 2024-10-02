@@ -15,7 +15,7 @@ namespace DeliverCompany.Models
         [Required(ErrorMessage = "Noteringsdatum är obligatoriskt")]
         public DateTime NoteDate { get; set; }
 
-        public string NoteDescription { get; set; }
+        public string? NoteDescription { get; set; }
 
         [Required(ErrorMessage = "Ansvarig medarbetare är obligatorisk")]
         public string ResponsibleEmployee { get; set; }
@@ -31,6 +31,6 @@ namespace DeliverCompany.Models
         public decimal TotalBeloppIn { get; set; }
 
         // Relation till händelser
-        public ICollection<Event> Events { get; set; }
+        public ICollection<Event>? Events { get; set; }
     }
 }

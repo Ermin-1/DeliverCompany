@@ -1,28 +1,34 @@
 ﻿@model Driver
 
-<form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="DriverID" />
+<div>
+    <h2 class="text-center mb-4">Edit Driver Details for @Model.DriverName</h2>
 
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Lägg till valideringssammanfattning -->
+    <!-- Form for editing driver details -->
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="DriverID" />
 
-    <div class="form-group">
-        <label asp-for="DriverName"></label>
-        <input asp-for="DriverName" class="form-control" />
-        <span asp-validation-for="DriverName" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="DriverName">Driver Name</label>
+            <input asp-for="DriverName" class="form-control" />
+            <span asp-validation-for="DriverName" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="CarReg"></label>
-        <input asp-for="CarReg" class="form-control" />
-        <span asp-validation-for="CarReg" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="CarReg">Car Registration</label>
+            <input asp-for="CarReg" class="form-control" />
+            <span asp-validation-for="CarReg" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="ResponsibleEmployee"></label>
-        <input asp-for="ResponsibleEmployee" class="form-control" />
-        <span asp-validation-for="ResponsibleEmployee" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="ResponsibleEmployee">Responsible Employee</label>
+            <input asp-for="ResponsibleEmployee" class="form-control" />
+            <span asp-validation-for="ResponsibleEmployee" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Spara</button>
-</form>
+        <!-- Button to submit the form -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+﻿@model DeliverCompany.Models.Driver
+
+<div>
+    <h2 class="text-center mb-4">Create a New Driver</h2>
+
+    <!-- Formulär för att skapa en ny förare -->
+    <form asp-action="Create" method="post">
+        <!-- Anti-forgery token för att skydda mot CSRF -->
+        <input type="hidden" asp-antiforgery="true" />
+
+        <!-- Fält för DriverName -->
+        <div class="form-group">
+            <label asp-for="DriverName" class="control-label">Driver Name</label>
+            <input asp-for="DriverName" class="form-control" />
+            <span asp-validation-for="DriverName" class="text-danger"></span>
+        </div>
+
+        <!-- Fält för CarReg -->
+        <div class="form-group">
+            <label asp-for="CarReg" class="control-label">Car Registration</label>
+            <input asp-for="CarReg" class="form-control" />
+            <span asp-validation-for="CarReg" class="text-danger"></span>
+        </div>
+
+        <!-- Fält för ResponsibleEmployee -->
+        <div class="form-group">
+            <label asp-for="ResponsibleEmployee" class="control-label">Responsible Employee</label>
+            <input asp-for="ResponsibleEmployee" class="form-control" />
+            <span asp-validation-for="ResponsibleEmployee" class="text-danger"></span>
+        </div>
+
+        <!-- Submit-knapp -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<!-- Lägg till klientbaserad validering -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
