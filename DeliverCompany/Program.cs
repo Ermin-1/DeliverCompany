@@ -1,4 +1,4 @@
-﻿using DeliverCompany.Data;
+using DeliverCompany.Data;
 using DeliverCompany.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +17,9 @@ namespace DeliverCompany
             // Configure the database context
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+         //Configure RazorPages
+         builder.Services.AddRazorPages();
 
             // Configure Identity services for Employee and IdentityRole
             builder.Services.AddIdentity<Employee, IdentityRole>()
@@ -42,6 +45,7 @@ namespace DeliverCompany
                 await IdentitySeeder.SeedRolesAndUsersAsync(services);
             }
 
+            app.MapRazorPages();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
