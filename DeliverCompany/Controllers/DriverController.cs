@@ -47,7 +47,7 @@ namespace DeliverCompany.Controllers
         }
 
         // POST: Driver/Create
-        [Authorize(Roles = "Admin, Employee")]
+        //[Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DriverID,DriverName,CarReg,ResponsibleEmployee")] Driver driver)
@@ -78,7 +78,7 @@ namespace DeliverCompany.Controllers
 
 
         // GET: Driver/Edit/5
-        [Authorize(Roles = "Admin, Employee")]
+        //[Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,7 +95,7 @@ namespace DeliverCompany.Controllers
         }
 
         // POST: Driver/Edit/5
-        [Authorize(Roles = "Admin, Employee")]
+        //[Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DriverID,DriverName,CarReg,ResponsibleEmployee")] Driver driver)
@@ -141,7 +141,7 @@ namespace DeliverCompany.Controllers
 
 
         // GET: Driver/Delete/5
-        [Authorize(Roles = "Admin, Employee")]
+        //[Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -160,7 +160,7 @@ namespace DeliverCompany.Controllers
         }
 
         // POST: Driver/Delete/5
-        [Authorize(Roles = "Admin, Employee")]
+        //[Authorize(Roles = "Admin, Employee")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -178,7 +178,7 @@ namespace DeliverCompany.Controllers
         }
 
         // GET: Driver/AddEvent/1
-        [Authorize(Roles = "Admin, Employee")]
+        //[Authorize(Roles = "Admin, Employee")]
         public IActionResult AddEvent(int? id)
         {
             if (id == null)
@@ -197,7 +197,7 @@ namespace DeliverCompany.Controllers
         }
 
         // POST: Driver/AddEvent/5
-        [Authorize(Roles = "Admin, Employee")]
+        //[Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEvent([Bind("EventID,DriverID,NoteDate,NoteDescription,BeloppIn,BeloppUt")] Event @event)
@@ -257,7 +257,7 @@ namespace DeliverCompany.Controllers
 
 
 
-        [Authorize(Roles = "Admin, Employee")]
+        //[Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();

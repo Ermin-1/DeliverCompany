@@ -1,6 +1,10 @@
-﻿@* @model IEnumerable<DeliverCompany.Models.Employee>
+﻿@model IEnumerable<DeliverCompany.Models.Employee>
 
-<h2>Employees</h2>
+@{
+    ViewData["Title"] = "Employee List";
+}
+
+<h2>Employee List</h2>
 
 <table class="table">
     <thead>
@@ -17,13 +21,12 @@
                 <td>@employee.Name</td>
                 <td>@employee.Email</td>
                 <td>
-                    <a href="/Employee/Edit/@employee.Id" class="btn btn-primary">Edit</a>
-                    <a href="/Employee/Delete/@employee.Id" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@employee.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a href="/Employee/Create" class="btn btn-success">Add New Employee</a>
- *@
+<a asp-action="Create" class="btn btn-primary">Add New Employee</a>

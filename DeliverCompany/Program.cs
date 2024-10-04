@@ -1,6 +1,7 @@
 using DeliverCompany.Data;
 using DeliverCompany.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliverCompany
@@ -18,16 +19,32 @@ namespace DeliverCompany
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
-         //Configure RazorPages
-         builder.Services.AddRazorPages();
+            builder.Services.AddLogging();
+
+
+            //Configure RazorPages
+            builder.Services.AddRazorPages();
 
             // Configure Identity services for Employee and IdentityRole
-            builder.Services.AddIdentity<Employee, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            builder.Services.AddIdentity<Employee, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+            })
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
+
+            // Configure Identity services for Employee and IdentityRole
+            builder.Services.ConfigureApplicationCookie(OptionsBuilderConfigurationExtensions =>
+            {
+                OptionsBuilderConfigurationExtensions.LoginPath = "/Identity/Account/Login";
+                OptionsBuilderConfigurationExtensions.AccessDeniedPath = "/Identity/Account/AccessDenied";
+            });
 
             // Add IHttpContextAccessor
             builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddSingleton<IEmailSender, DummyEmailSender>(); 
+
 
             var app = builder.Build();
 

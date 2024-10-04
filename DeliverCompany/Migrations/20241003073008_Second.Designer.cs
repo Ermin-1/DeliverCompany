@@ -4,6 +4,7 @@ using DeliverCompany.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliverCompany.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241003073008_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +75,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 200.00m,
                             CarReg = "ABC123",
                             DriverName = "Alice Smith",
-                            NoteDate = new DateTime(2024, 10, 2, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5510),
+                            NoteDate = new DateTime(2024, 10, 2, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4229),
                             NoteDescription = "Completed delivery route",
                             ResponsibleEmployee = "John Doe",
                             TotalBeloppIn = 500.00m,
@@ -85,7 +88,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 100.00m,
                             CarReg = "XYZ789",
                             DriverName = "Bob Johnson",
-                            NoteDate = new DateTime(2024, 10, 1, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5558),
+                            NoteDate = new DateTime(2024, 10, 1, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4278),
                             NoteDescription = "Vehicle maintenance",
                             ResponsibleEmployee = "Admin User",
                             TotalBeloppIn = 0.00m,
@@ -98,7 +101,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 150.00m,
                             CarReg = "LMN456",
                             DriverName = "Michael Brown",
-                            NoteDate = new DateTime(2024, 9, 30, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5562),
+                            NoteDate = new DateTime(2024, 9, 30, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4283),
                             NoteDescription = "Delivered groceries",
                             ResponsibleEmployee = "Jane Doe",
                             TotalBeloppIn = 400.00m,
@@ -111,7 +114,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 200.00m,
                             CarReg = "JKL789",
                             DriverName = "Emma Wilson",
-                            NoteDate = new DateTime(2024, 9, 29, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5565),
+                            NoteDate = new DateTime(2024, 9, 29, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4286),
                             NoteDescription = "Completed overnight delivery",
                             ResponsibleEmployee = "Tom Hardy",
                             TotalBeloppIn = 600.00m,
@@ -124,7 +127,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 300.00m,
                             CarReg = "OPQ123",
                             DriverName = "Oliver Martinez",
-                            NoteDate = new DateTime(2024, 9, 28, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5568),
+                            NoteDate = new DateTime(2024, 9, 28, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4289),
                             NoteDescription = "Completed furniture delivery",
                             ResponsibleEmployee = "Emily Davis",
                             TotalBeloppIn = 700.00m,
@@ -137,7 +140,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 400.00m,
                             CarReg = "RST456",
                             DriverName = "Lucas Green",
-                            NoteDate = new DateTime(2024, 9, 27, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5571),
+                            NoteDate = new DateTime(2024, 9, 27, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4292),
                             NoteDescription = "Delivered medical supplies",
                             ResponsibleEmployee = "Sophia Turner",
                             TotalBeloppIn = 1000.00m,
@@ -150,7 +153,7 @@ namespace DeliverCompany.Migrations
                             BeloppUt = 500.00m,
                             CarReg = "UVW789",
                             DriverName = "Liam White",
-                            NoteDate = new DateTime(2024, 9, 26, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5573),
+                            NoteDate = new DateTime(2024, 9, 26, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4296),
                             NoteDescription = "Delivered electronics",
                             ResponsibleEmployee = "Luke Perry",
                             TotalBeloppIn = 1200.00m,
@@ -264,7 +267,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 400.00m,
                             BeloppUt = 50.00m,
                             DriverID = 1,
-                            NoteDate = new DateTime(2024, 10, 2, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5684),
+                            NoteDate = new DateTime(2024, 10, 2, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4459),
                             NoteDescription = "Delivered goods to customer"
                         },
                         new
@@ -273,7 +276,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 0.00m,
                             BeloppUt = 300.00m,
                             DriverID = 2,
-                            NoteDate = new DateTime(2024, 10, 1, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5687),
+                            NoteDate = new DateTime(2024, 10, 1, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4463),
                             NoteDescription = "Vehicle repaired"
                         },
                         new
@@ -282,7 +285,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 0.00m,
                             BeloppUt = 100.00m,
                             DriverID = 1,
-                            NoteDate = new DateTime(2024, 9, 30, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5689),
+                            NoteDate = new DateTime(2024, 9, 30, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4466),
                             NoteDescription = "Picked up supplies"
                         },
                         new
@@ -291,7 +294,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 400.00m,
                             BeloppUt = 50.00m,
                             DriverID = 3,
-                            NoteDate = new DateTime(2024, 9, 29, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5691),
+                            NoteDate = new DateTime(2024, 9, 29, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4468),
                             NoteDescription = "Delivered groceries"
                         },
                         new
@@ -300,7 +303,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 600.00m,
                             BeloppUt = 100.00m,
                             DriverID = 4,
-                            NoteDate = new DateTime(2024, 9, 28, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5694),
+                            NoteDate = new DateTime(2024, 9, 28, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4471),
                             NoteDescription = "Completed overnight delivery"
                         },
                         new
@@ -309,7 +312,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 700.00m,
                             BeloppUt = 150.00m,
                             DriverID = 5,
-                            NoteDate = new DateTime(2024, 9, 27, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5696),
+                            NoteDate = new DateTime(2024, 9, 27, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4473),
                             NoteDescription = "Furniture delivered"
                         },
                         new
@@ -318,7 +321,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 1000.00m,
                             BeloppUt = 200.00m,
                             DriverID = 6,
-                            NoteDate = new DateTime(2024, 9, 26, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5698),
+                            NoteDate = new DateTime(2024, 9, 26, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4476),
                             NoteDescription = "Delivered medical supplies"
                         },
                         new
@@ -327,7 +330,7 @@ namespace DeliverCompany.Migrations
                             BeloppIn = 1200.00m,
                             BeloppUt = 300.00m,
                             DriverID = 7,
-                            NoteDate = new DateTime(2024, 9, 25, 13, 38, 11, 446, DateTimeKind.Local).AddTicks(5700),
+                            NoteDate = new DateTime(2024, 9, 25, 9, 30, 7, 555, DateTimeKind.Local).AddTicks(4478),
                             NoteDescription = "Delivered electronics"
                         });
                 });
