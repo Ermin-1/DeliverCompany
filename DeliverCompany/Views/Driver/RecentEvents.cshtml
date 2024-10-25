@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Driver>
+
+<h2 class="text-center mb-4">Recent Driver Events (Last 12 Hours)</h2>
+
+<!-- Table to display drivers with recent events -->
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Driver Name</th>
+                <th>Car Registration</th>
+                <th>Most Recent Event Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @foreach (var driver in Model)
+            {
+                var latestEventDate = driver.Events?.OrderByDescending(e => e.NoteDate).FirstOrDefault()?.NoteDate;
+
+                <tr>
+                    <td>@driver.DriverName</td>
+                    <td>@driver.CarReg</td>
+                    <td>
+                        @if (latestEventDate.HasValue)
+                        {
+                            @latestEventDate.Value.ToShortDateString()
+                        }
+                        else
+                        {
+                            <span>No events</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = driver.DriverID })" class="btn btn-sm btn-info">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

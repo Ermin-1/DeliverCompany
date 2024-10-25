@@ -56,34 +56,39 @@ public class IdentitySeeder
     {
         var user = await userManager.FindByEmailAsync(email);
         if (user == null)
-        {
-            user = new Employee
+            if (user != null)
             {
-                UserName = email,
-                Email = email,
-                Name = name,
-                EmailConfirmed = true, // Gör att användaren kan logga in direkt utan att bekräfta e-post
-                NormalizedEmail = email.ToUpper(),
-                NormalizedUserName = email.ToUpper()
-
-            };
-
-            var result = await userManager.CreateAsync(user, password);
-            if (result.Succeeded)
-            {
+                if (!user.EmailConfirmed)
+                {
+                    user.EmailConfirmed = true; // Tvinga uppdatering av EmailConfirmed
+                    await userManager.UpdateAsync(user); // Uppdatera användaren i databasen
+                }
+                logger.LogInformation($"User '{email}' already exists. Resetting password.");
+                await ResetUserPassword(userManager, user, password);
                 await userManager.AddToRoleAsync(user, role);
-                logger.LogInformation($"User '{email}' created successfully and assigned to role '{role}'.");
             }
             else
             {
-                logger.LogError($"Error creating user '{email}': {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                user = new Employee
+                {
+                    UserName = email,
+                    Email = email,
+                    Name = name,
+                    EmailConfirmed = true,
+                    NormalizedEmail = email.ToUpper(),
+                    NormalizedUserName = email.ToUpper()
+                };
+
+                var result = await userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, role);
+                    logger.LogInformation($"User '{email}' created successfully and assigned to role '{role}'.");
+                }
+                else
+                {
+                    logger.LogError($"Error creating user '{email}': {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                }
             }
-        }
-        else
-        {
-            logger.LogInformation($"User '{email}' already exists. Resetting password.");
-            await ResetUserPassword(userManager, user, password);
-            await userManager.AddToRoleAsync(user, role);
-        }
     }
 }

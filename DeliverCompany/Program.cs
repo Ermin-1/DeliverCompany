@@ -56,11 +56,9 @@ namespace DeliverCompany
             }
 
             // Seed roles and users
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                await IdentitySeeder.SeedRolesAndUsersAsync(services);
-            }
+            var scope = app.Services.CreateScope();
+            await IdentitySeeder.SeedRolesAndUsersAsync(scope.ServiceProvider);
+
 
             app.MapRazorPages();
             app.UseHttpsRedirection();

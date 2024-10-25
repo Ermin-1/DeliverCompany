@@ -17,7 +17,7 @@ namespace DeliverCompany.Controllers
             _logger = logger;
         }
 
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Index(string searchString, DateTime? fromNoteDate, DateTime? toNoteDate)
         {
             var drivers = _context.Drivers.Include(d => d.Events).AsQueryable();
@@ -40,14 +40,14 @@ namespace DeliverCompany.Controllers
 
 
         // GET: Driver/Create
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Driver/Create
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DriverID,DriverName,CarReg,ResponsibleEmployee")] Driver driver)
@@ -78,7 +78,7 @@ namespace DeliverCompany.Controllers
 
 
         // GET: Driver/Edit/5
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,7 +95,7 @@ namespace DeliverCompany.Controllers
         }
 
         // POST: Driver/Edit/5
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DriverID,DriverName,CarReg,ResponsibleEmployee")] Driver driver)
@@ -141,7 +141,7 @@ namespace DeliverCompany.Controllers
 
 
         // GET: Driver/Delete/5
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -160,7 +160,7 @@ namespace DeliverCompany.Controllers
         }
 
         // POST: Driver/Delete/5
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -178,7 +178,7 @@ namespace DeliverCompany.Controllers
         }
 
         // GET: Driver/AddEvent/1
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         public IActionResult AddEvent(int? id)
         {
             if (id == null)
@@ -197,7 +197,7 @@ namespace DeliverCompany.Controllers
         }
 
         // POST: Driver/AddEvent/5
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEvent([Bind("EventID,DriverID,NoteDate,NoteDescription,BeloppIn,BeloppUt")] Event @event)
@@ -257,7 +257,7 @@ namespace DeliverCompany.Controllers
 
 
 
-        //[Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -275,6 +275,28 @@ namespace DeliverCompany.Controllers
             return View(driver);
         }
 
+
+
+
+
+        [Authorize(Roles = "Admin, Employee")]
+        public async Task<IActionResult> RecentEvents()
+        {
+            // Hämta datum och tid från 12 timmar tillbaka
+            DateTime last12Hours = DateTime.Now.AddHours(-12);
+
+            // Hämta alla förare och inkludera deras händelser
+            var drivers = await _context.Drivers
+                .Include(d => d.Events)
+                .ToListAsync();
+
+            // Filtrera förare som har händelser från de senaste 12 timmarna
+            var driversWithRecentEvents = drivers
+                .Where(d => d.Events.Any(e => e.NoteDate >= last12Hours))
+                .ToList();
+
+            return View(driversWithRecentEvents);
+        }
 
 
     }

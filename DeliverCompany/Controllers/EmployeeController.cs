@@ -102,7 +102,7 @@ namespace DeliverCompany.Controllers
         }
 
         // POST: Employee/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteConfirmed")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var employee = await _userManager.FindByIdAsync(id);

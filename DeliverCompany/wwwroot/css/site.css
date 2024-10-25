@@ -1,3 +1,64 @@
+/* Styling för huvudcontainern */
+.welcome-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Stora rubriker */
+    .welcome-container h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* Ledande text (underrubrik) */
+    .welcome-container .lead {
+        font-size: 1.25rem;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    /* Textstyling */
+    .welcome-container p {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    /* Länkar */
+    .welcome-container a {
+        color: #007bff;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+        .welcome-container a:hover {
+            text-decoration: underline;
+        }
+
+/* Bakgrundsfärg för hela sidan */
+body {
+    background-color: #eef2f7;
+}
+
+/* Förbättrad stil för inloggningsknappen (den övre högra hörnan) */
+.navbar-nav .nav-link {
+    color: #007bff;
+    font-weight: 600;
+    transition: color 0.2s ease-in-out;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #0056b3;
+    }
+
+
+
 html {
   font-size: 14px;
 }
